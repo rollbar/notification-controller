@@ -92,6 +92,7 @@ const (
 	GoogleChatProvider     string = "googlechat"
 	WebexProvider          string = "webex"
 	SentryProvider         string = "sentry"
+	RollbarProvider        string = "rollbar"
 	AzureEventHubProvider  string = "azureeventhub"
 	TelegramProvider       string = "telegram"
 	LarkProvider           string = "lark"

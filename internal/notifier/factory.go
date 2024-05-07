@@ -164,6 +164,10 @@ func sentryNotifierFunc(opts notifierOptions) (Interface, error) {
 	return NewSentry(opts.CertPool, opts.URL, opts.Channel)
 }
 
+func rollbarNotifierFunc(opts notifierOptions) (Interface, error) {
+	return NewRollbar(opts.Token, opts.Channel, opts.ProxyURL, opts.CertPool, opts.URL)
+}
+
 func azureEventHubNotifierFunc(opts notifierOptions) (Interface, error) {
 	return NewAzureEventHub(opts.URL, opts.Token, opts.Channel)
 }
