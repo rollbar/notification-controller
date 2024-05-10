@@ -109,6 +109,7 @@ spec:
                 - googlechat
                 - webex
                 - sentry
+                - rollbar
                 - azureeventhub
                 - telegram
                 - lark
@@ -322,6 +323,7 @@ spec:
                 - googlepubsub
                 - webex
                 - sentry
+                - rollbar
                 - azureeventhub
                 - telegram
                 - lark
@@ -538,6 +540,7 @@ spec:
                 - googlepubsub
                 - webex
                 - sentry
+                - rollbar
                 - azureeventhub
                 - telegram
                 - lark

@@ -43,6 +43,7 @@ const (
 	GooglePubSubProvider    string = "googlepubsub"
 	WebexProvider           string = "webex"
 	SentryProvider          string = "sentry"
+	RollbarProvider         string = "rollbar"
 	AzureEventHubProvider   string = "azureeventhub"
 	TelegramProvider        string = "telegram"
 	LarkProvider            string = "lark"
@@ -57,7 +58,7 @@ const (
 // ProviderSpec defines the desired state of the Provider.
 type ProviderSpec struct {
 	// Type specifies which Provider implementation to use.
-	// +kubebuilder:validation:Enum=slack;discord;msteams;rocket;generic;generic-hmac;github;gitlab;gitea;bitbucketserver;bitbucket;azuredevops;googlechat;googlepubsub;webex;sentry;azureeventhub;telegram;lark;matrix;opsgenie;alertmanager;grafana;githubdispatch;pagerduty;datadog;nats
+	// +kubebuilder:validation:Enum=slack;discord;msteams;rocket;generic;generic-hmac;github;gitlab;gitea;bitbucketserver;bitbucket;azuredevops;googlechat;googlepubsub;webex;sentry;rollbar;azureeventhub;telegram;lark;matrix;opsgenie;alertmanager;grafana;githubdispatch;pagerduty;datadog;nats
 	// +required
 	Type string `json:"type"`
 
