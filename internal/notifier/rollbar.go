@@ -2,7 +2,6 @@ package notifier
 
 import (
 	"context"
-	"crypto/x509"
 	"fmt"
 	"strings"
 	"time"
@@ -15,8 +14,6 @@ import (
 type Rollbar struct {
 	Token       string
 	Environment string
-	ProxyURL    string
-	CertPool    *x509.CertPool
 	RollbarUrl  string
 }
 
@@ -50,20 +47,24 @@ type RollbarServer struct {
 const defaultRollbarURL = "https://api.rollbar.com/api/1/item/"
 
 // NewRollbar validates the Rollbar token and returns a Rollbar object
-func NewRollbar(token string, environment string, proxyURL string, certPool *x509.CertPool, url string) (*Rollbar, error) {
+func NewRollbar(token string, environment string, url string) (*Rollbar, error) {
+	fmt.Printf("Starting Rollbar notifier!!!! :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n")
 	if token == "" {
 		return nil, fmt.Errorf("Rollbar token cannot be empty")
+	} else {
+		// TODO Disable this
+		fmt.Printf("RollbarNotifier ::: Received token %s\n", token)
 	}
 
 	if url == "" {
 		url = defaultRollbarURL
 	}
 
+	fmt.Printf("RollbarNotifier ::: Posting to url %s\n", url)
+
 	return &Rollbar{
 		Token:       token,
 		Environment: environment,
-		ProxyURL:    proxyURL,
-		CertPool:    certPool,
 		RollbarUrl:  url,
 	}, nil
 }
@@ -71,14 +72,15 @@ func NewRollbar(token string, environment string, proxyURL string, certPool *x50
 // Post Rollbar message
 func (r *Rollbar) Post(ctx context.Context, event eventv1.Event) error {
 	// Only post error events
-	fmt.Printf("Context: %v", ctx)
-	fmt.Printf("Event: %v", event)
-	if event.Severity != eventv1.EventSeverityError {
-		return nil
-	}
+	// if event.Severity != eventv1.EventSeverityError {
+	// 	return nil
+	// }
+
+	fmt.Printf("RollbarNotifier ::: Event:  %v\n", event)
+	fmt.Printf("RollbarNotifier ::: Rollbar Object %v\n", r)
+	fmt.Printf("RollbarNotifier ::: Severity %v\n", event.Severity)
 
 	host := fmt.Sprintf("%s/%s.%s", strings.ToLower(event.InvolvedObject.Kind), event.InvolvedObject.Name, event.InvolvedObject.Namespace)
-	fmt.Printf("HOST: %v", host)
 	payload := RollbarPayload{
 		AccessToken: r.Token,
 		Data: RollbarData{
@@ -97,11 +99,13 @@ func (r *Rollbar) Post(ctx context.Context, event eventv1.Event) error {
 		},
 	}
 
-	err := postMessage(ctx, r.RollbarUrl, r.ProxyURL, r.CertPool, payload, func(request *retryablehttp.Request) {
+	err := postMessage(ctx, r.RollbarUrl, "", nil, payload, func(request *retryablehttp.Request) {
 		request.Header.Add("Content-Type", "application/json")
+		request.Header.Add("accept", "application/json")
+		request.Header.Add("X-Rollbar-Access-Token", r.Token)
 	})
 	if err != nil {
-		return fmt.Errorf("postMessage failed: %w", err)
+		return fmt.Errorf("postMessage failed: %w\n", err)
 	}
 	return nil
 }

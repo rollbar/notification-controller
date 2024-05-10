@@ -37,6 +37,7 @@ var (
 		apiv1.GooglePubSubProvider:    googlePubSubNotifierFunc,
 		apiv1.WebexProvider:           webexNotifierFunc,
 		apiv1.SentryProvider:          sentryNotifierFunc,
+		apiv1.RollbarProvider:         rollbarNotifierFunc,
 		apiv1.AzureEventHubProvider:   azureEventHubNotifierFunc,
 		apiv1.TelegramProvider:        telegramNotifierFunc,
 		apiv1.LarkProvider:            larkNotifierFunc,
@@ -165,7 +166,7 @@ func sentryNotifierFunc(opts notifierOptions) (Interface, error) {
 }
 
 func rollbarNotifierFunc(opts notifierOptions) (Interface, error) {
-	return NewRollbar(opts.Token, opts.Channel, opts.ProxyURL, opts.CertPool, opts.URL)
+	return NewRollbar(opts.Token, opts.Channel, opts.URL)
 }
 
 func azureEventHubNotifierFunc(opts notifierOptions) (Interface, error) {

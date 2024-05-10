@@ -42,7 +42,7 @@ func TestNewRollbar(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		rollbar, err := NewRollbar(test.token, test.environment, "", nil, "")
+		rollbar, err := NewRollbar(test.token, test.environment, "")
 		if test.expectError {
 			require.Error(t, err)
 		} else {
@@ -86,7 +86,7 @@ func TestRollbarPost(t *testing.T) {
 	server := newMockRollbarServer(t, expectedPayload)
 	defer server.Close()
 
-	rollbar, err := NewRollbar("test_token", "test_env", "", nil, server.URL)
+	rollbar, err := NewRollbar("test_token", "test_env", server.URL)
 	require.NoError(t, err)
 
 	err = rollbar.Post(context.Background(), event)
@@ -98,7 +98,7 @@ func TestRollbarPostNonErrorEvent(t *testing.T) {
 		Severity: eventv1.EventSeverityInfo,
 	}
 
-	rollbar, err := NewRollbar("test_token", "test_env", "", nil, "")
+	rollbar, err := NewRollbar("test_token", "test_env", "")
 	require.NoError(t, err)
 
 	err = rollbar.Post(context.Background(), event)
