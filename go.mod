@@ -26,7 +26,7 @@ require (
 	github.com/getsentry/sentry-go v0.27.0
 	github.com/go-logr/logr v1.4.1
 	github.com/google/go-github/v53 v53.2.0
-	github.com/hashicorp/go-retryablehttp v0.7.5
+	github.com/hashicorp/go-retryablehttp v0.7.7
 	github.com/ktrysmt/go-bitbucket v0.9.79
 	github.com/microsoft/azure-devops-go-api/azuredevops/v6 v6.0.1
 	github.com/nats-io/nats.go v1.34.1
@@ -166,7 +166,7 @@ require (
 	golang.org/x/mod v0.17.0 // indirect
 	golang.org/x/net v0.24.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
-	golang.org/x/sys v0.19.0 // indirect
+	golang.org/x/sys v0.20.0 // indirect
 	golang.org/x/term v0.19.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.4.0 // indirect
